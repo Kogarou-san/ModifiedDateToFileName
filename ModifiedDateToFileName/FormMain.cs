@@ -1,20 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Diagnostics;
 
 namespace ModifiedDateToFileName
 {
-	public partial class Form1 : Form
+	public partial class FormMain : Form
 	{
-		public Form1()
+		public FormMain()
 		{
 			InitializeComponent();
 		}
@@ -59,9 +52,11 @@ namespace ModifiedDateToFileName
 					File.AppendAllText("info.txt", String.Concat("Renamed ", oldName, " to ", newName, Environment.NewLine)); 
 					i++;
 				}
-				File.AppendAllText("info.txt", String.Concat("\n\n", i-1, " out of ", fileEntries.Length, " files renamed succ-essfully in "));
 				stopwatch.Stop();
-				File.AppendAllText("info.txt", String.Concat((double)stopwatch.ElapsedMilliseconds/1000, " seconds.", Environment.NewLine));
+				String message = String.Concat("\n\n", i - 1, " out of ", fileEntries.Length, " files renamed succ-essfully in ",
+												(float)stopwatch.ElapsedMilliseconds / 1000, " seconds.");
+				File.AppendAllText("info.txt", message + Environment.NewLine);
+				MessageBox.Show(message, "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
 			}
 		}

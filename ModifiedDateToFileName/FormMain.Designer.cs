@@ -1,6 +1,6 @@
 ﻿namespace ModifiedDateToFileName
 {
-	partial class Form1
+	partial class FormMain
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -51,15 +51,16 @@
 			this.label1.TabIndex = 1;
 			this.label1.Text = "Choose folder";
 			// 
-			// Form1
+			// FormMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(800, 450);
+			this.ClientSize = new System.Drawing.Size(246, 45);
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.button1);
-			this.Name = "Form1";
-			this.Text = "Form1";
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+			this.Name = "FormMain";
+			this.Text = "ModifiedDateToFileName";
 			this.ResumeLayout(false);
 			this.PerformLayout();
 

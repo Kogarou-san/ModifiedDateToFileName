@@ -49,7 +49,7 @@ namespace ModifiedDateToFileName
 
 					File.Move(String.Concat(path, '\\', oldName),
 							String.Concat(path, '\\', newName));
-					File.AppendAllText("info.txt", String.Concat("Renamed ", oldName, " to ", newName, Environment.NewLine)); 
+					File.AppendAllText("info.txt", String.Concat(" Renamed ", oldName, " to ", newName, Environment.NewLine)); 
 					i++;
 				}
 				stopwatch.Stop();

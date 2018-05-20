@@ -61,7 +61,7 @@ namespace ModifiedDateToFileName
 				}
 				File.AppendAllText("info.txt", String.Concat("\n\n", i-1, " out of ", fileEntries.Length, " files renamed succ-essfully in "));
 				stopwatch.Stop();
-				File.AppendAllText("info.txt", String.Concat((double)stopwatch.ElapsedMilliseconds/1000, "seconds.", Environment.NewLine));
+				File.AppendAllText("info.txt", String.Concat((double)stopwatch.ElapsedMilliseconds/1000, " seconds.", Environment.NewLine));
 
 			}
 		}

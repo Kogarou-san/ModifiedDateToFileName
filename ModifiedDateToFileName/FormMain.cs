@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.IO;
-using System.Diagnostics;
 
 namespace ModifiedDateToFileName
 {
@@ -11,9 +10,12 @@ namespace ModifiedDateToFileName
 		{
 			InitializeComponent();
 		}
+		/*String	directory:		full path to the file, not including the filename			Eg.		"C:\foo\bar.txt"
+					fileEntries:	full path to a list of files, including the filenames		Eg.	[0]	"C:\latin\lorem.txt"
+																									[1]	"C:\latin\ipsum.txt"
+					file:			a single position of the array "fileEntries"				Eg.	[1]	"C:\latin\ipsum.txt"
+					fileName:		the filename of "file", including extension					Eg.		"ipsum.txt"*/
 
-		String directory;
-		Stopwatch stopwatch = new Stopwatch();
 
 		private void buttonOpen_Click(object sender, EventArgs e)
 		{
@@ -25,37 +27,31 @@ namespace ModifiedDateToFileName
 
 			if (openFileDialog.ShowDialog() == DialogResult.OK)
 			{
-				stopwatch.Start();
-
-				directory = Path.GetDirectoryName(openFileDialog.FileName);
-				String path = Path.GetDirectoryName(openFileDialog.FileName);
-				String[] fileEntries = Directory.GetFiles(directory);
-				UInt64 i = 1;
-				foreach (String fileName in fileEntries)
+				String		directory	= Path.GetDirectoryName(openFileDialog.FileName);
+				String[]	fileEntries = Directory.GetFiles(directory);
+				foreach (String file in fileEntries)
 				{
-					String oldName, extension;
-					oldName = Path.GetFileName(fileName);
-					extension = Path.GetExtension(openFileDialog.FileName);
+					String	oldName		= Path.GetFileName(file),
+							extension	= Path.GetExtension(openFileDialog.FileName);
 
-					DateTime dateTime = File.GetLastWriteTime(fileName);
-
-					File.AppendAllText("info.txt", String.Concat("DST for " + oldName + " is " + TimeZoneInfo.Local.IsDaylightSavingTime(File.GetLastWriteTime(fileName)).ToString(), '.'));
-
-					if (TimeZoneInfo.Local.IsDaylightSavingTime(File.GetLastWriteTime(fileName)))
+					DateTime dateTime = File.GetLastWriteTime(file);
+					
+					if (TimeZoneInfo.Local.IsDaylightSavingTime(dateTime))
 						dateTime.AddHours(1);
+
 					String newName = String.Concat(dateTime.ToString("yyyy-MM-dd hh.mm.ss"), extension);
 
-					File.Move(String.Concat(path, '\\', oldName),
-							String.Concat(path, '\\', newName));
-					File.AppendAllText("info.txt", String.Concat(" Renamed ", oldName, " to ", newName, Environment.NewLine));
+					File.Move(	String.Concat(directory, '\\', oldName),
+								String.Concat(directory, '\\', newName));
+					
 				}
-				stopwatch.Stop();
-				String message = String.Concat("\n\n", i - 1, " out of ", fileEntries.Length, " files renamed successfully in ",
-												(float)stopwatch.ElapsedMilliseconds / 1000, " seconds.");
-				File.AppendAllText("info.txt", message + Environment.NewLine);
-				MessageBox.Show(message, "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
 			}
 		}
 	}
 }
+
+
+/*shit seria
+	
+
+	*/
